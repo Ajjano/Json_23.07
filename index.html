@@ -35,10 +35,10 @@
             let xhr=new XMLHttpRequest();
 
             //настройка запроса
-            xhr.open("GET", `postdata.php?login=${login}&action=${action}`, true);//true-асинхронный запрос
-
+            xhr.open("POST", `https://vmeste.in.ua/ajjano/postData.php`, true);//true-асинхронный запрос
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             //отправка запроса
-            xhr.send();
+            xhr.send({login: login, action: action});
             //события состояния или код ответа сервера
             xhr.onreadystatechange=()=>{
                 if(xhr.readyState!=4){
