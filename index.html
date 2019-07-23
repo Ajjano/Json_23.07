@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="#" name="myForm">
+        <p>
+            <input type="text" name="login" placeholder="Enter login">
+        </p>
+        <p>
+            <select name="command" id="command">
+                <option value="players">List of players</option>
+                <option value="countries">List of countries</option>
+                <option value="languages">List of languages</option>
+                <option value="cars">List of cars</option>
+            </select>
+        </p>
+        <p>
+            <input type="submit" name="send" value="Send">
+        </p>
+    </form>
+
+    <script>
+        document.myForm.send.addEventListener('click',()=>{
+            event.preventDefault();
+
+            //получаем данные формы
+            let login=document.myForm.login.value;
+            let action=document.myForm.command.value;
+
+            // XMLHttpRequest - встроенный объект для ajax
+            //создание объекта
+            let xhr=new XMLHttpRequest();
+
+            //настройка запроса
+            xhr.open("GET", `postdata.php?login=${login}&action=${action}`, true);//true-асинхронный запрос
+
+            //отправка запроса
+            xhr.send();
+            //события состояния или код ответа сервера
+            xhr.onreadystatechange=()=>{
+                if(xhr.readyState!=4){
+                    return;
+                }
+                else if(xhr.status!=200){
+                    console.log(`${xhr.status}:${xhr.statusText}`);
+                }
+                else{
+                    alert(xhr.responseText);
+                }
+            }
+        });
+
+
+    </script>
+</body>
+</html>
